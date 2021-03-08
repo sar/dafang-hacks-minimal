@@ -8,11 +8,12 @@
     [Xiaomi XiaoFang T20](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/raw/master/hacks/cfw/xiaofang/cfw-1.0.bin) | 333053c3e98af24e0e90746d95e310a3c65b61f697288f974b702a5bcbba48a9
     [Wyzecam V2/Neos SmartCam](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/raw/master/hacks/cfw/wyzecam_v2/cfw-1.1.bin) | ca8fd695fe1903bd12aca2752c86b62c9694430c9c41b2804b006c22e84f409d
     [Wyzecam Pan](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/raw/master/hacks/cfw/wyzecam_pan/cfw-1.0.bin) | f76990d187e763f160f5ad39331d6a3209d3025fe3719cb43c92dbad92cebba2
+    Xiaomi XiaoFang T20L | [Start here](/hacks/install_cfw_t10l.md.md)
     Sannce & clones | [Start here](/hacks/install_sannce.md)
     Other Ingenic T10/T20 Device | [Start here](/hacks/newdevices.md)
 
 2. Format your microSD to FAT32. NTFS, EXFAT etc. won't work. Try to use smaller older SD cards like 512 MB or create just a single primary 512 MB partition on it for maximum success rate.
-3. Copy the CFW-Binary from step 1 to the formatted microSD card and rename it to "demo.bin". There must not be other files on the microSD! This is really important and it won't work if there are any other files on there.
+3. Copy the CFW-Binary from step 1 to the formatted microSD card and rename it to "demo.bin". For Wyzecam v3 the filename must be demo_wcv3.bin. There must not be other files on the microSD! This is really important and it won't work if there are any other files on there.
 4. Remove the power cable from the camera and plug the microSD card into the camera
 5. Hold down the setup button on the camera while
 6. Plugging in the USB power cable

@@ -55,7 +55,7 @@
 
   # Light Sensor
   if [ "$LIGHT_SENSOR" != "false" ]; then
-    $MQTT_COMMAND "$AUTODISCOVERY_PREFIX/sensor/$DEVICE_NAME/light_sensor/config" ${MOSQUITTOPUBOPTS} ${MOSQUITTOOPTS} -r -m "{\"name\": \"$DEVICE_NAME light sensor\", \"unique_id\": \"$MAC_SIMPLE-light-sensor\", $DEVICE_INFO, \"icon\": \"mdi:brightness-5\", \"unit_of_measurement\": \"%\", \"state_topic\": \"$TOPIC/brightness\"}"
+	$MQTT_COMMAND "$AUTODISCOVERY_PREFIX/sensor/$DEVICE_NAME/light_sensor/config" ${MOSQUITTOPUBOPTS} ${MOSQUITTOOPTS} -r -m "{\"name\": \"$DEVICE_NAME light sensor\", \"unique_id\": \"$MAC_SIMPLE-light-sensor\", $DEVICE_INFO, \"icon\": \"mdi:brightness-5\", \"unit_of_measurement\": \"%\", \"state_topic\": \"$TOPIC/brightness\"}"
   fi
 
   # Night mode
@@ -65,9 +65,7 @@
   $MQTT_COMMAND "$AUTODISCOVERY_PREFIX/switch/$DEVICE_NAME/auto_night_mode/config" ${MOSQUITTOPUBOPTS} ${MOSQUITTOOPTS} -r -m "{\"name\": \"$DEVICE_NAME night mode auto\", \"unique_id\": \"$MAC_SIMPLE-night-mode-auto\", $DEVICE_INFO, \"icon\": \"mdi:weather-night\", \"state_topic\": \"$TOPIC/night_mode/auto\", \"command_topic\": \"$TOPIC/night_mode/auto/set\"}"
 
   # RTSP Server
-  $MQTT_COMMAND "$AUTODISCOVERY_PREFIX/switch/$DEVICE_NAME/rtsp_h264_server/config" ${MOSQUITTOPUBOPTS} ${MOSQUITTOOPTS} -r -m "{\"name\": \"$DEVICE_NAME h264 rtsp server\", \"unique_id\": \"$MAC_SIMPLE-h264-rtsp-server\", $DEVICE_INFO, \"icon\": \"mdi:cctv\", \"state_topic\": \"$TOPIC/rtsp_h264_server\", \"command_topic\": \"$TOPIC/rtsp_h264_server/set\"}"
-  $MQTT_COMMAND "$AUTODISCOVERY_PREFIX/switch/$DEVICE_NAME/rtsp_mjpeg_server/config" ${MOSQUITTOPUBOPTS} ${MOSQUITTOOPTS} -r -m "{\"name\": \"$DEVICE_NAME mjpeg rtsp server\", \"unique_id\": \"$MAC_SIMPLE-mjpeg-rtsp-server\", $DEVICE_INFO, \"icon\": \"mdi:cctv\", \"state_topic\": \"$TOPIC/rtsp_mjpeg_server\", \"command_topic\": \"$TOPIC/rtsp_mjpeg_server/set\"}"
-
+  $MQTT_COMMAND "$AUTODISCOVERY_PREFIX/switch/$DEVICE_NAME/rtsp_server/config" ${MOSQUITTOPUBOPTS} ${MOSQUITTOOPTS} -r -m "{\"name\": \"$DEVICE_NAME rtsp server\", \"unique_id\": \"$MAC_SIMPLE-rtsp-server\", $DEVICE_INFO, \"icon\": \"mdi:cctv\", \"state_topic\": \"$TOPIC/rtsp_server\", \"command_topic\": \"$TOPIC/rtsp_server/set\"}"
 
   # Motor up/down/left/right
   $MQTT_COMMAND "$AUTODISCOVERY_PREFIX/cover/$DEVICE_NAME/motor_up_down/config" ${MOSQUITTOPUBOPTS} ${MOSQUITTOOPTS} -r -m "{\"name\": \"$DEVICE_NAME move up/down\", \"unique_id\": \"$MAC_SIMPLE-move-up-down\", $DEVICE_INFO, \"set_position_topic\": \"$TOPIC/motors/vertical/set\", \"position_topic\": \"$TOPIC/motors/vertical\", \"command_topic\": \"$TOPIC/motors/vertical/set\", \"payload_close\": \"down\", \"payload_open\": \"up\", \"optimistic\": \"false\", \"value_template\": \"{{ ((value|int)/($MAX_Y/$STEP))|round }}\", \"set_position_template\": \"{{ ((position|int)*($MAX_Y/$STEP))|round }}\"}"

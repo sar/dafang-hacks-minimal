@@ -148,7 +148,7 @@ case "$F_cmd" in
 	ir_cut off
   ;;
 
-ir_cut_status)
+  ir_cut_status)
 	ir_cut status
 	return
   ;;
@@ -187,35 +187,12 @@ ir_cut_status)
 	return
   ;;
 
-  h264_start)
-	/system/sdcard/controlscripts/rtsp-h264 start
-  ;;
-
-  h264_noseg_start)
-	/system/sdcard/controlscripts/rtsp-h264 start
-  ;;
-
-  mjpeg_start)
-	/system/sdcard/controlscripts/rtsp-mjpeg start
-  ;;
-
-  h264_nosegmentation_start)
-	/system/sdcard/controlscripts/rtsp-h264 start
+  rtsp_start)
+        /system/sdcard/controlscripts/rtsp start
   ;;
 
   rtsp_stop)
-	/system/sdcard/controlscripts/rtsp-mjpeg stop
-	/system/sdcard/controlscripts/rtsp-h264 stop
-  ;;
-
-  h264_status)
-	rtsp_h264_server status
-	return
-  ;;
-
-  mjpeg_status)
-	rtsp_mjpeg_server status
-	return
+	/system/sdcard/controlscripts/rtsp stop
   ;;
 
   settz)
@@ -389,8 +366,7 @@ auto_night_mode_status)
 	frmRateDen=$(printf '%b' "${F_frmRateDen/%/\\x}")
 	frmRateNum=$(printf '%b' "${F_frmRateNum/%/\\x}")
 
-	rewrite_config /system/sdcard/config/rtspserver.conf RTSPH264OPTS "\"$video_size\""
-	rewrite_config /system/sdcard/config/rtspserver.conf RTSPMJPEGOPTS "\"$video_size\""
+	rewrite_config /system/sdcard/config/rtspserver.conf RTSPOPTS "\"$video_size\""
 	rewrite_config /system/sdcard/config/rtspserver.conf BITRATE "$brbitrate"
 	rewrite_config /system/sdcard/config/rtspserver.conf VIDEOFORMAT "$video_format"
 	rewrite_config /system/sdcard/config/rtspserver.conf USERNAME "$videouser"
