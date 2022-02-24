@@ -47,8 +47,6 @@ if [ -n "$F_cmd" ]; then
     echo "mqttSnapshot#:#${publish_mqtt_snapshot}"
     echo "mqttVideo#:#${publish_mqtt_video}"
     echo "sendEmail#:#${send_email}"
-    echo "sendTelegram#:#${send_telegram}"
-    echo "telegramAlertType#:#${telegram_alert_type}"
     
 	;;
   save_config)
@@ -203,16 +201,6 @@ if [ -n "$F_cmd" ]; then
 		F_sendEmail=$(printf '%b' "${F_sendEmail//%/\\x}")
 	    rewrite_config /system/sdcard/config/motion.conf send_email $F_sendEmail
 		  echo "Send mail on motion set to $F_sendEmail<br/>"
-	  fi
-    if [ -n "${F_sendTelegram+x}" ]; then
-	    F_sendTelegram=$(printf '%b' "${F_sendTelegram//%/\\x}")
-	    rewrite_config /system/sdcard/config/motion.conf send_telegram $F_sendTelegram
-		  echo "Send Telegram on motion set to $F_sendTelegram<br/>"
-	  fi
-    if [ -n "${F_telegramAlertType+x}" ]; then
-	    F_telegramAlertType=$(printf '%b' "${F_telegramAlertType//%/\\x}")
-	    rewrite_config /system/sdcard/config/motion.conf telegram_alert_type $F_telegramAlertType
-		  echo "Telegram alert type set to $F_telegramAlertType<br/>"
 	  fi
     if [ -n "${F_regions+x}" ]; then
 	  F_regions=$(printf '%b' "${F_regions//%/\\x}")

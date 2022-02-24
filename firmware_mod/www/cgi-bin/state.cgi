@@ -30,11 +30,6 @@ if [ -n "$F_cmd" ]; then
     else
         echo "motion_mail:OFF"
     fi
-    if [ get_config "/system/sdcard/config/motion.conf" "send_telegram" ]; then
-        echo "motion_telegram:ON"
-    else
-        echo "motion_telegram:OFF"
-    fi
     if [ get_config "/system/sdcard/config/motion.conf" "motion_trigger_led" ]; then
         echo "motion_led:ON"
     else
@@ -130,15 +125,6 @@ if [ -n "$F_cmd" ]; then
   motion_mail)
     . /system/sdcard/config/motion.conf 2> /dev/null
     if [ "$send_email" == "true" ]; then
-      echo "ON"
-    else
-      echo "OFF"
-    fi
-    ;;
-
-  motion_telegram)
-    . /system/sdcard/config/motion.conf 2> /dev/null
-    if [ "$send_telegram" == "true" ]; then
       echo "ON"
     else
       echo "OFF"

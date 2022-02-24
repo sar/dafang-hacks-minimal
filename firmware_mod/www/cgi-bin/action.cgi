@@ -583,21 +583,6 @@ auto_night_mode_status)
 		return
 		;;
 
-  motion_detection_telegram_on)
-		motion_send_telegram on
-		return
-		;;
-
-  motion_detection_telegram_off)
-		motion_send_telegram off
-		return
-		;;
-
-  motion_detection_telegram_status)
-		motion_send_telegram status
-		return
-		;;
-
   motion_detection_led_on)
 		motion_led on
 		return

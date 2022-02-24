@@ -45,14 +45,6 @@ if [ -n "$F_cmd" ]; then
     echo "timeBetweenSnapshot#:#${TIMEBETWEENSNAPSHOT}"
     echo "quality#:#${QUALITY}"
   ;;
-  get_config_telegram)
-    if [ ! -f "/system/sdcard/config/telegram.conf" ]; then
-      $(cp /system/sdcard/config/telegram.conf.dist /system/sdcard/config/telegram.conf)
-    fi
-    source /system/sdcard/config/telegram.conf
-    echo "apiToken#:#${apiToken}"
-    echo "userChatID#:#${userChatId}"
-  ;;
   save_config_mqtt)
     echo "Save mqtt"
     if [ -n "${F_mqttUser+x}" ]; then
@@ -156,18 +148,6 @@ if [ -n "$F_cmd" ]; then
       F_quality=$(printf '%b' "${F_quality//%/\\x}")
 	    rewrite_config /system/sdcard/config/sendmail.conf QUALITY $F_quality
 		  echo "Sendmail quality of pictures set to $F_quality<br/>"
-	  fi
-    ;;
-  save_config_telegram)
-    if [ -n "${F_apiToken+x}" ]; then
-      F_apiToken=$(printf '%b' "${F_apiToken//%/\\x}")
-	    rewrite_config /system/sdcard/config/telegram.conf apiToken "\"$F_apiToken\""
-		  echo "Telegram api token set to $F_apiToken<br/>"
-	  fi
-    if [ -n "${F_userChatID+x}" ]; then
-      F_userChatID=$(printf '%b' "${F_userChatID//%/\\x}")
-	    rewrite_config /system/sdcard/config/telegram.conf userChatId "\"$F_userChatID\""
-		  echo "Telegram userChatId set to $F_userChatID<br/>"
 	  fi
     ;;
     *)

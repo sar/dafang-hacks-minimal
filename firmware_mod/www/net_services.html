@@ -8,12 +8,8 @@
     <a href="javascript:void(0)" onclick="openTab(event, 'mailTab');getConfig('mail');">
       <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Mail</div>
     </a>
-    <a href="javascript:void(0)" onclick="openTab(event, 'telegramTab');getConfig('telegram');">
-      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Telegram</div>
-    </a>
-        
-  </div>
-<!-- MQTT Tab -->
+</div>
+  <!-- MQTT Tab -->
   <div id="mqttTab" class="w3-container tab">
         <p><form class="w3-container" onsubmit="saveConfig('mqtt');return false" id="mqtt"></p>
         <label>Server address</label>
@@ -80,17 +76,6 @@
   </div>
   <p><button class="w3-btn w3-theme" >Save</button></form></p>
 </div>
-
-<!-- Telegram Tab-->
-<div id="telegramTab" class="w3-container tab" style="display:none">
-  <p><form class="w3-container" onsubmit="saveConfig('telegram');return false" id="telegram"></p>
-  <label>API Token</label>
-  <input id="apiToken" class="w3-input" type="text"><br />
-  <label>User chat ID</label>
-  <input id="userChatID" class="w3-input" type="text"><br />
-  <p><button class="w3-btn w3-theme" >Save</button></form></p>
-</div>
-  
 </div>
 </div>
 <div id="save_confirm" class="w3-modal">

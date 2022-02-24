@@ -23,7 +23,6 @@ if [ -n "$F_cmd" ]; then
     echo "yellow_led:$(yellow_led status)"
     echo "motion_detection:$(motion_detection status)"
     echo "motion_mail:$(motion_send_mail status)"
-    echo "motion_telegram:$(motion_send_telegram status)"
     echo "motion_led:$(motion_led status)"
     echo "motion_snapshot:$(motion_snapshot status)"
     echo "motion_mqtt:$(motion_mqtt_publish status)"
@@ -75,9 +74,6 @@ if [ -n "$F_cmd" ]; then
     ;;
   motion_mail)
     motion_send_mail $F_action
-    ;;
-  motion_telegram)
-    motion_send_telegram $F_action
     ;;
   motion_led)
     motion_led $F_action

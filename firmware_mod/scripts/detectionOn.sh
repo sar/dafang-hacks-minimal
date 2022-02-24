@@ -68,7 +68,7 @@ filename=$(date "$filename_pattern")
 debug_msg "Got snapshot_tempfile=$snapshot_tempfile"
 
 # Then, record video (if necessary)
-if [ "$save_video" = true -o "$smb_video" = true -o "$telegram_alert_type" = "video" -o "$publish_mqtt_video" = true ] ; then
+if [ "$save_video" = true -o "$smb_video" = true -o "$publish_mqtt_video" = true ] ; then
 	record_video
 fi
 
@@ -226,30 +226,6 @@ fi
 if [ "$send_email" = true ] ; then
 	debug_msg "Send emails"
 	/system/sdcard/scripts/sendPictureMail.sh &
-fi
-
-# Send a telegram message
-if [ "$send_telegram" = true ]; then
-	(
-	include /system/sdcard/config/telegram.conf
-
-	if [ "$telegram_alert_type" = "text" ] ; then
-		debug_msg "Send telegram text"
-		/system/sdcard/bin/telegram m "Motion detected"
-	elif [ "$telegram_alert_type" = "image" ] ; then
-		debug_msg "Send telegram image"
-		/system/sdcard/bin/telegram p "$snapshot_tempfile"
-	elif [ "$telegram_alert_type" = "video" ] ; then
-		debug_msg "Send telegram video"
-		if [ "$video_use_rtsp" = true ]; then
-			/system/sdcard/bin/telegram v "$video_tempfile"
-			else
-			/system/sdcard/bin/avconv -i "$video_tempfile" "$video_tempfile-lo.mp4"
-			/system/sdcard/bin/telegram v "$video_tempfile-lo.mp4"
-			rm "$video_tempfile-lo.mp4"
-		fi
-	fi
-	) &
 fi
 
 # Run any user scripts.

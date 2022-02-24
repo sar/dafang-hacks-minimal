@@ -525,48 +525,6 @@ motion_send_mail(){
   esac
 }
 
-# Control the telegram service
-telegram_bot(){
-  case "$1" in
-  on)
-	/system/sdcard/controlscripts/telegram-bot start
-	;;
-  off)
-	/system/sdcard/controlscripts/telegram-bot stop
-	;;
-  status)
-	if /system/sdcard/controlscripts/telegram-bot status | grep -q "PID"
-	then
-		echo "ON"
-	else
-		echo "OFF"
-	fi
-	;;
-  esac
-}
-
-# Control the motion detection Telegram function
-motion_send_telegram(){
-  case "$1" in
-  on)
-	rewrite_config /system/sdcard/config/motion.conf send_telegram "true"
-	;;
-  off)
-	rewrite_config /system/sdcard/config/motion.conf send_telegram "false"
-	;;
-  status)
-	status=$(grep '^[^#;]' /system/sdcard/config/motion.conf|grep 'send_telegram'|cut -f2 -d \=)
-	case $status in
-	  true)
-		echo "ON"
-		;;
-	  *)
-		echo "OFF"
-		;;
-	esac
-  esac
-}
-
 # Control the motion detection snapshot function
 motion_snapshot(){
   case "$1" in
