@@ -11,10 +11,7 @@
     <a href="javascript:void(0)" onclick="openTab(event, 'telegramTab');getConfig('telegram');">
       <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Telegram</div>
     </a>
-    <a href="javascript:void(0)" onclick="openTab(event, 'matrixTab');getConfig('matrix');">
-      <div class="w3-quarter tablink w3-bottombar w3-hover-light-grey w3-padding">Matrix</div>
-    </a>
-    
+        
   </div>
 <!-- MQTT Tab -->
   <div id="mqttTab" class="w3-container tab">
@@ -93,23 +90,6 @@
   <input id="userChatID" class="w3-input" type="text"><br />
   <p><button class="w3-btn w3-theme" >Save</button></form></p>
 </div>
-<!-- Matrix Tab-->
-<div id="matrixTab" class="w3-container tab" style="display:none">
-  <p><form class="w3-container" onsubmit="saveConfig('matrix');return false" id="matrix"></p>
-    
-    <label>Server host</label>
-    <input id="host" class="w3-input" type="text"><br />
-    <label>Server port</label>
-    <input id="portM" class="w3-input" type="text"><br />
-    <label>Room ID</label>
-    <input id="roomID" class="w3-input" type="text"><br />
-    <label>Sender</label>
-    <input id="sender" class="w3-input" type="text"><br />
-    <label>Access token</label>
-    <input id="accessToken" class="w3-input" type="text"><br />
-    <p><button class="w3-btn w3-theme" >Save</button></form></p>
-</div>
-  
   
 </div>
 </div>

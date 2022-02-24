@@ -53,17 +53,6 @@ if [ -n "$F_cmd" ]; then
     echo "apiToken#:#${apiToken}"
     echo "userChatID#:#${userChatId}"
   ;;
-  get_config_matrix)
-    if [ ! -f "/system/sdcard/config/matrix.conf" ]; then
-      $(cp /system/sdcard/config/matrix.conf.dist /system/sdcard/config/matrix.conf)
-    fi
-    source /system/sdcard/config/matrix.conf
-    echo "host#:#${host}"
-    echo "portM#:#${port}"
-    echo "roomID#:#${room_id}"
-    echo "sender#:#${sender}"
-    echo "accessToken#:#${access_token}"
-	;;
   save_config_mqtt)
     echo "Save mqtt"
     if [ -n "${F_mqttUser+x}" ]; then
@@ -178,37 +167,10 @@ if [ -n "$F_cmd" ]; then
     if [ -n "${F_userChatID+x}" ]; then
       F_userChatID=$(printf '%b' "${F_userChatID//%/\\x}")
 	    rewrite_config /system/sdcard/config/telegram.conf userChatId "\"$F_userChatID\""
-		  echo "Matrix server host set to $F_userChatID<br/>"
+		  echo "Telegram userChatId set to $F_userChatID<br/>"
 	  fi
     ;;
-  save_config_matrix)
-    if [ -n "${F_host+x}" ]; then
-      F_host=$(printf '%b' "${F_host//%/\\x}")
-	    rewrite_config /system/sdcard/config/matrix.conf host $F_host
-		  echo "Matrix server host set to $F_host<br/>"
-	  fi
-    if [ -n "${F_portM+x}" ]; then
-      F_portM=$(printf '%b' "${F_portM//%/\\x}")
-	    rewrite_config /system/sdcard/config/matrix.conf port $F_portM
-		  echo "Matrix server port set to $F_portM<br/>"
-	  fi
-      if [ -n "${F_roomID+x}" ]; then
-      F_roomID=$(printf '%b' "${F_roomID//%/\\x}")
-	    rewrite_config /system/sdcard/config/matrix.conf room_id $F_roomID
-		  echo "Matrix room ID set to $F_roomID<br/>"
-	  fi
-    if [ -n "${F_sender+x}" ]; then
-	    F_sender=$(printf '%b' "${F_sender//%/\\x}")
-      rewrite_config /system/sdcard/config/matrix.conf sender $F_sender
-		  echo "Matrix server sender set to $F_sender<br/>"
-	  fi
-    if [ -n "${F_accessToken+x}" ]; then
-	    F_accessToken=$(printf '%b' "${F_accessToken//%/\\x}")
-      rewrite_config /system/sdcard/config/matrix.conf access_token $F_accessToken
-		  echo "Matrix server access token set<br/>"
-	  fi
-    ;;
-  *)
+    *)
     echo "Unsupported command '$F_cmd'"
     ;;
 

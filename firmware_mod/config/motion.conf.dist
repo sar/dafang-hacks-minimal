@@ -23,7 +23,6 @@ publish_mqtt_video=false
 send_email=false
 send_telegram=false
 telegram_alert_type=image
-send_matrix=false
 
 # General
 group_date_pattern="+%Y-%m-%d/%H"

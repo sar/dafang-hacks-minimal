@@ -49,7 +49,6 @@ if [ -n "$F_cmd" ]; then
     echo "sendEmail#:#${send_email}"
     echo "sendTelegram#:#${send_telegram}"
     echo "telegramAlertType#:#${telegram_alert_type}"
-    echo "sendMatrix#:#${send_matrix}"
     
 	;;
   save_config)
@@ -214,11 +213,6 @@ if [ -n "$F_cmd" ]; then
 	    F_telegramAlertType=$(printf '%b' "${F_telegramAlertType//%/\\x}")
 	    rewrite_config /system/sdcard/config/motion.conf telegram_alert_type $F_telegramAlertType
 		  echo "Telegram alert type set to $F_telegramAlertType<br/>"
-	  fi
-    if [ -n "${F_sendMatrix+x}" ]; then
-		F_sendMatrix=$(printf '%b' "${F_sendMatrix//%/\\x}")
-	    rewrite_config /system/sdcard/config/motion.conf send_matrix $F_sendMatrix
-		  echo "Send Matrix on motion set to $F_sendMatrix<br/>"
 	  fi
     if [ -n "${F_regions+x}" ]; then
 	  F_regions=$(printf '%b' "${F_regions//%/\\x}")

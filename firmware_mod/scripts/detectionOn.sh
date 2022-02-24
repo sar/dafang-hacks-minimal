@@ -252,15 +252,6 @@ if [ "$send_telegram" = true ]; then
 	) &
 fi
 
-# Send a matrix message
-if [ "$send_matrix" = true ]; then
-	(
-	include /system/sdcard/config/matrix.conf
-	debug_msg "Send matrix message"
-	/system/sdcard/bin/matrix m "Motion detected"
-	) &
-fi
-
 # Run any user scripts.
 for i in /system/sdcard/config/userscripts/motiondetection/*; do
     if [ -x "$i" ]; then
