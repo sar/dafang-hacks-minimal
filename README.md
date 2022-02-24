@@ -1,83 +1,104 @@
-## Xiaomi DaFang Hacks / XiaoFang 1S / Wyzecam V2 / Wyzecam Pan / Other T20 Devices
+# Hardened Dafang Hacks Custom Firmware | RTSP server
 
-[![Join the chat at https://gitter.im/Xiaomi-Dafang-Hacks/Lobby](https://badges.gitter.im/Xiaomi-Dafang-Hacks/Lobby.svg)](https://gitter.im/Xiaomi-Dafang-Hacks/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+The goal of this repository is to create a hardened, stable, and performant fork of [dafang-hacks](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks.git) with plain-old RTSP server on a minimal stripped-down linux runtime environment. External internet-based network services (ex. Telegram, MQTT, HomeKit, etc) have been stripped out.
 
-This repository contains custom firmwares for the following devices:
+As the devices may execute unaudited binary blobs, place them in a closed-circuit offline loop (CCTV) with a locally provisioned RTSP gateway and Time Server.
+
+Refer to section on [Security](Security).
+
+## Device Support
+
+Firmware has been tested stable on the following devices if using releases based on `master` branch.
 
 Name | Picture
 --- | ---
-Xiaomi Dafang | ![Dafang](/dafang.png)
-Xiaomi Xiaofang 1S (old Version with T20 is supported, newer Version with T20L is in beta) | ![XiaoFang](/xiaofang.png)
-Wyzecam Pan | ![Dafang](/dafang.png)
 Wyzecam V2 | ![XiaoFang](/xiaofang.png)
-Neos SmartCam | ![XiaoFang](/xiaofang.png)
-Sannce I21AG, MixSight HX-I2110T2, WanScam HW0036, Digoo BB-M2 | ![XiaoFang](/sannce.jpg)
-Any other Device with Ingenic T10/T20 Device https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/issues/980 | ![T20](/t20.png)
 
-If you want to test the Xiaofang T20L (newer version) please check out the [beta branch in this repository](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/tree/beta).
+Refer to [device support](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks) for the full list. Note forked firmware may brick your device and you assume all responsibility for usage.
 
-If you have a classic XiaoFang with a ARM-Processor, consider using https://github.com/samtap/fang-hacks
+### WARNING: Do not install the latest Firmware on your Device. It will prevent installing custom firmware.
 
-### Attention: Do not install the latest Firmware on your Device. It will disable the support of this hack. 
+See upstream [issue #669](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/issues/669).
 
-Further information about this topic can be found here: https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/issues/669
+### Flashing Firmware
 
+1. Before you try to install it, please read the [FAQ](/hacks/faq.md)
+2. After that, continue to the [Installation](/hacks/install_cfw.md)
 
-## How to install the CFW
+Technical docs on cfw flashing process can be found [here](/hacks/technical.md)
 
-Before you try to install it, please read the [FAQ](/hacks/faq.md)
+--- 
 
-After that, continue to the
-[Installation](/hacks/install_cfw.md)
+## Capturing Feed
 
+Using any open source RTSP server, point the capture url to `rtsp://<IP_ADDRESS>:8554/unicast`, where the `<IP_ADDRESS>` is either `DHCP_LEASE_IP` or `HOSTAPD_DHCP_SERVER_IP = 10.0.0.1`.
 
-### Support
+### Supported Integrations
 
-If you encounter a problem, please see first if you find similiar open/closed issues. 
-Or ask in our [Gitter channel](https://gitter.im/Xiaomi-Dafang-Hacks) for help.
+Locally running services on the same network can access camera feed/controls.
 
-If you don't find anything related, feel free to open a new issue.
-If you/we solve your issue, please condense your gained insights into a pull request for continuous self-improvement.
+* [Custom Scripts](/integration/custom/motiondetection.md)
+* [Zoneminder](/integration/zoneminder/zoneminder.md)
 
-### Partner Community:
+---
 
-We are really excited to announce that we have now a open source partner community, which provides a lot of content about the T10/T20/T30 Devices
+## Security
 
-![Ebaina](/ebaina.png)
+Hardening entails both auditing the original source (work in progress) for potential vulnerabilities and minimizing the attack surface.
 
-Start here for more informations:
-http://bbs.ebaina.com/thread-53811-1-1.html
+### Functionality Removed
 
-欢迎来到这个存储库亲爱的朋友们。 从这里开始，获取关于在您的设备上获取此hack的教程：[开始](/hacks/install_cfw_cn.md)
+Complete list of internet-based services including those defined as [malware](https://gnu.org/malware) removed:
 
+* Outbound/Matrix
+* Outbound/Telegram
+* Integration/HomeAutomation
+* Integration/Homekit
+* Integration/Openhab
+* Service/AutoUpdate
+* Service/MQTT
+* Service/Telnet
+* Service/Mail
+* Service/hostapd
 
+### RFC: Planned Removal
 
-## Technical Information about the hack:
+To further harden, the webserver should be optional. In place, SSH server can be bound to auto-start for modifying configuration remotely.
 
-Start [here](/hacks/technical.md)
+LetsEncrypt pre-generated certificate.
 
-## Integration in Home Automation Systems:
+### RFC: Pending Audit
 
-[Domoticz](/integration/domoticz/domoticz.md)
+* [C libs - /firmware_mod/lib/.so](/firmware_mod/lib/)
+* [bin - /firmware_mod/bin/](/firmware_mod/bin/)
+* [driver bins - /firmware_mod/driver_t20l](/firmware_mod/driver_t20l/)
+* [minified hls js bundle - /firmware_mod/hls/](/firmware_mod/hls/)
+* [js bundles - /firmware_mod/www/lib](/firmware_mod/www/lib)
 
-[Home Assistant](/integration/homeassistant/homeassistant.md)
+**Libaries**
 
-[HomeKit](/integration/homekit/homekit.md)
+Sources include static [libaries](/firmware_mod/www/lib) with `sha256sum` hashes to verify originals against publically available compiled releases.
 
-[OpenHab](https://community.openhab.org/t/how-to-configure-a-hacked-xiaomi-dafang-to-work-with-openhab/51121)
+**Binary Blobs**
 
-[Synology](/integration/synology/synology.md)
+Based on licensing issues (described below), "binary blobs" for bootloader and original firmware have been stripped out. Sources can be obtained from upstream repo [Xiaomi-Dafang-Hacks](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/) and verified against `sha256sum` `sha3sum`.
 
-[tinyCam](/integration/tinycam/tinycam.md)
+----
 
-[Zoneminder](/integration/zoneminder/zoneminder.md)
+## Contributing
 
-## Other features
+Issues and pull-requests are welcome. Please report the usage of insecure linked libraries or configs. 
 
-### Motion detection
+----
 
-It is possible to run your own scripts on motion detection. See [here](/integration/custom/motiondetection.md)
+## LICENSE
 
-## Contributions:
+Fork is licensed as "for the work that has happened inside this repo, you can assume a very free license" [source](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/issues/1379) and "any contribution to the development is highly welcome" [readme](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/).
 
-Any contribution to the development is highly welcome. Simply open a pull request against our beta branch on GitHub.
+The upstream license of certain components remain unclear, see the following issues:
+
+* [Issue #974 - Please add MIT license](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/issues/974)
+* [Issue #1379 - license of this project](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/issues/1379)
+* [Issue #1763 - License?](https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/issues/1763)
+
+View `git commit` history tree to determine what constitutes under appropriate license.
