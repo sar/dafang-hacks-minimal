@@ -2,7 +2,7 @@
 # Check if there is new parameters in the dist config file
 
 CONF_PATH="/system/sdcard/config"
-CONF_LIST="mqtt.conf rtspserver.conf matrix.conf motion.conf autonight.conf letsencrypt.conf sendmail.conf swap.conf telegram.conf"
+CONF_LIST="mqtt.conf rtspserver.conf motion.conf autonight.conf letsencrypt.conf sendmail.conf swap.conf telegram.conf"
 
 for CONF in $CONF_LIST; do
     CONF_NEW_VARS_COUNT=0
